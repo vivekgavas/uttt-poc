@@ -1,0 +1,15 @@
+# Django REST API — Python dependencies
+#
+# Install on Linux inside the virtual environment:
+#   pip install -r requirements.txt
+#
+# Tested combination (Rocky Linux 9, Python 3.11, PostgreSQL 13):
+#   Django 5.2 LTS  —  active until April 2028
+#   DRF 3.17.2+     —  first DRF release patching CVE-2026-73228
+#   psycopg2-binary —  PostgreSQL 13 adapter, binary wheel (no C build tools needed)
+#   python-decouple —  reads .env file and environment variables into Django settings
+
+Django>=5.2,<6.0
+djangorestframework>=3.17.2,<4.0
+psycopg2-binary>=2.9.9,<3.0
+python-decouple>=3.8
