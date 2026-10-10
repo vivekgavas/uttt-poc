@@ -10,9 +10,9 @@ Windows and deployed to Linux via Git.
 
 | Component | Version | Notes |
 |---|---|---|
-| Python | 3.11 | Installed from Rocky Linux 9 AppStream. Python 3.9 (the RL9 default) reached EOL October 2025 and must not be used. |
+| Python | 3.12 | Already installed on the Linux VM. Fully supported by all packages below. |
 | Django | 5.2 LTS | Active LTS, supported until April 2028. Django 4.2 LTS reached EOL April 2026. |
-| Django REST Framework | 3.17.2+ | Supports Django 5.2 + Python 3.11. First DRF release patching CVE-2026-73228. |
+| Django REST Framework | 3.17.2+ | Supports Django 5.2 + Python 3.12. First DRF release patching CVE-2026-73228. |
 | psycopg2-binary | 2.9.13 | PostgreSQL 13 adapter. Binary wheel — no C build tools needed on Rocky Linux. |
 | PostgreSQL | 13 | Already running on Linux. No upgrade required. |
 
@@ -89,15 +89,12 @@ All endpoints are under `/api/`.
 
 Run all of the following commands in your Rocky Linux 9 terminal.
 
-### Step 1 — Install Python 3.11
+### Step 1 — Confirm Python 3.12
 
-Rocky Linux 9 ships with Python 3.9 as the system default (`python3`). Python 3.9
-reached end of life in October 2025. Install 3.11 from the AppStream repository
-alongside the system Python — this does **not** replace or remove `python3`.
+Python 3.12 is already installed on your VM. Verify it:
 
 ```bash
-sudo dnf install python3.11 python3.11-pip -y
-python3.11 --version   # should print Python 3.11.x
+python3.12 --version   # should print Python 3.12.x
 ```
 
 ### Step 2 — Clone or pull the repository
@@ -139,8 +136,8 @@ You only need to do this once.
 A virtual environment keeps the project's packages separate from the system Python.
 
 ```bash
-# Create a venv named 'venv' in the project root using Python 3.11
-python3.11 -m venv venv
+# Create a venv named 'venv' in the project root using Python 3.12
+python3.12 -m venv venv
 
 # Activate it — your prompt will change to show (venv)
 source venv/bin/activate
