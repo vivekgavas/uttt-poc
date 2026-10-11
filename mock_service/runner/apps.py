@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class TasksConfig(AppConfig):
+class RunnerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tasks'
+    name = 'runner'
+    verbose_name = 'Mock Test Runner'

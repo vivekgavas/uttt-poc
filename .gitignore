@@ -23,6 +23,9 @@ media/
 staticfiles/
 static_root/
 
+# Mock service SQLite database
+mock_service/mock.sqlite3
+
 # Distribution / packaging
 .eggs/
 *.egg-info/

@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     # Third-party
     'rest_framework',
     # Our apps
-    'tasks',
+    'uttt',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +136,31 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.JSONParser',
     ],
 }
+
+# ---------------------------------------------------------------------------
+# UTTT Platform settings
+# ---------------------------------------------------------------------------
+
+# API key required in X-Platform-Api-Key header for all platform management endpoints.
+# Generate with: python3 -c "import secrets; print(secrets.token_urlsafe(32))"
+PLATFORM_API_KEY = config('PLATFORM_API_KEY', default='')
+
+# Base URL of this UTTT platform, used by the worker to build callback URLs.
+# Must be reachable from the external test service (mock service on port 8001).
+UTTT_BASE_URL = config('UTTT_BASE_URL', default='http://127.0.0.1:8000')
+
+# How long (seconds) to wait for a terminal callback before marking TIMED_OUT.
+EXECUTION_TIMEOUT_SECONDS = config('EXECUTION_TIMEOUT_SECONDS', default=30, cast=int)
+
+# How often the UTTT worker polls for pending work (seconds).
+WORKER_POLL_INTERVAL_SECONDS = config('WORKER_POLL_INTERVAL_SECONDS', default=3, cast=int)
+
+# Maximum number of dispatch attempts before a dispatch is marked FAILED.
+WORKER_MAX_DISPATCH_RETRIES = config('WORKER_MAX_DISPATCH_RETRIES', default=3, cast=int)
+
+# HTTP timeout for outbound dispatch calls to the external service (seconds).
+WORKER_HTTP_TIMEOUT_SECONDS = config('WORKER_HTTP_TIMEOUT_SECONDS', default=10, cast=int)
+
+# A SENDING dispatch older than this many seconds is assumed to be from a crashed
+# worker and is reset to UNCERTAIN so it can be retried.
+WORKER_STALE_DISPATCH_SECONDS = config('WORKER_STALE_DISPATCH_SECONDS', default=60, cast=int)
