@@ -15,10 +15,10 @@ Concurrency model:
     start of each cycle by recover_stale_dispatches().
 """
 import logging
-import os
 from datetime import timedelta
 
 import requests as http_client
+from decouple import config as env
 from django.conf import settings
 from django.db import IntegrityError, transaction
 from django.db.models import Q
@@ -168,7 +168,7 @@ def _send_dispatch(dispatch_id):
         .get(id=dispatch_id)
     )
     product = dispatch.workflow.product
-    api_key = os.environ.get(product.credential_env_key, '')
+    api_key = env(product.credential_env_key, default='')
     callback_url = (
         f"{settings.UTTT_BASE_URL.rstrip('/')}/api/execution-events/"
     )

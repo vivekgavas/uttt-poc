@@ -6,8 +6,8 @@ The callback endpoint (POST /api/execution-events/) authenticates inline
 using a per-product key bound to the specific dispatch being reported.
 """
 import logging
-import os
 
+from decouple import config as env
 from django.db import IntegrityError, transaction
 from django.utils import timezone
 from rest_framework import status
@@ -236,7 +236,7 @@ class ExecutionEventView(APIView):
             )
 
         product = dispatch.workflow.product
-        expected_key = os.environ.get(product.callback_secret_env_key, '')
+        expected_key = env(product.callback_secret_env_key, default='')
         provided_key = request.headers.get('X-Callback-Api-Key', '')
         if not expected_key or provided_key != expected_key:
             logger.warning(
